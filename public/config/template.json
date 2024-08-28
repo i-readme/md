@@ -1,0 +1,16 @@
+{
+    "templates": [
+        {
+            "name": "Basic README",
+            "content": "# Basic README\n\nThis is a basic template for a README file."
+        },
+        {
+            "name": "Project README",
+            "content": "# Project README\n\n## Introduction\n\nProvide a brief description of your project."
+        },
+        {
+            "name": "Documentation README",
+            "content": "# Documentation README\n\n## Setup\n\nSteps to set up the project."
+        }
+    ]
+}
