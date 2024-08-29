@@ -1,7 +1,9 @@
+import Download from '@components/DownloadButton';
+import Editor from '@components/Editor';
+import Header from '@components/Header';
+import Preview from '@components/Preview';
+import { useTheme } from '@config/ThemeContext';
 import React, { useEffect, useState } from 'react';
-import Download from '../components/DownloadButton';
-import Editor from '../components/Editor';
-import Preview from '../components/Preview';
 
 interface ReadmeTemplate {
   name: string;
@@ -12,6 +14,8 @@ export default function Home() {
   const [templates, setTemplates] = useState<ReadmeTemplate[]>([]);
   const [markdown, setMarkdown] = useState<string>('# Hello world');
   const [selectedTemplate, setSelectedTemplate] = useState<string>('');
+
+  const { theme } = useTheme(); // Get the current theme
 
   // Fetch templates from public folder client-side
   useEffect(() => {
@@ -48,17 +52,20 @@ export default function Home() {
   };
 
   return (
-    <div style={{ maxWidth: '1000px', margin: '0 auto', padding: '20px' }}>
-      <h1>README Editor and Previewer</h1>
+    <div style={{ width: '100%', height: '100%'}} className={theme}>
+      <Header />
+
 
       {/* Dropdown for Selecting Templates */}
-      <div style={{ marginBottom: '20px' }}>
+      <div className="px-4">
+        <h1 className="text-2xl font-bold">README Editor and Previewer</h1>
         <label htmlFor="template-select">Choose a README template: </label>
         <select
           id="template-select"
           value={selectedTemplate}
           onChange={handleSelectTemplate}
           style={{ padding: '10px', marginLeft: '10px' }}
+          className="border rounded"
         >
           <option value="">Select a template</option>
           {templates.map((template) => (
@@ -67,7 +74,7 @@ export default function Home() {
             </option>
           ))}
         </select>
-        <button onClick={handleResetEditor} style={{ marginLeft: '20px' }}>
+        <button onClick={handleResetEditor} style={{ marginLeft: '20px' }} className="ml-4 p-2 bg-red-500 text-white rounded">
           Reset Editor
         </button>
       </div>

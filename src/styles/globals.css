@@ -17,6 +17,8 @@
 }
 
 body {
+  width:100vw;
+  height: 100vh;
   color: rgb(var(--foreground-rgb));
   background: linear-gradient(
       to bottom,
@@ -30,4 +32,14 @@ body {
   .text-balance {
     text-wrap: balance;
   }
+}
+
+/* Theme-specific styles */
+
+.theme-light {
+  @apply bg-white text-black;
+}
+
+.theme-dark {
+  @apply bg-gray-900 text-white;
 }

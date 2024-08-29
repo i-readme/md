@@ -1,5 +1,5 @@
-import { ChangeEvent } from 'react';
-import TextareaAutosize from 'react-textarea-autosize';
+import React, { ChangeEvent } from 'react';
+import { useTheme } from '../config/ThemeContext';
 
 interface EditorProps {
   value: string;
@@ -7,24 +7,23 @@ interface EditorProps {
 }
 
 const Editor: React.FC<EditorProps> = ({ value, onChange }) => {
+  const { theme } = useTheme();
+
   const handleChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     onChange(e.target.value);
   };
 
   return (
-    <div>
-      <h2>Edit README</h2>
-      <TextareaAutosize
-        minRows={10}
+    <div className="p-4">
+      <h2 className="text-2xl mb-4">Edit README</h2>
+      <textarea
         value={value}
         onChange={handleChange}
-        style={{
-          width: '100%',
-          padding: '10px',
-          fontSize: '16px',
-          fontFamily: 'monospace',
-        }}
+        className={`w-full p-4 text-lg font-mono rounded-md border-2 ${
+          theme === 'light' ? 'bg-white text-black' : 'bg-gray-800 text-white'
+        }`}
         placeholder="Write your markdown here..."
+        rows={10}
       />
     </div>
   );
