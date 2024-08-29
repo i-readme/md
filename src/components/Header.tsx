@@ -4,8 +4,13 @@ import SunIcon from '@icons/sun.svg';
 import ToggleIcon from '@icons/toggle.svg';
 import Image from 'next/image';
 import { useState } from 'react';
+import Download from "./Download";
 
-const Header: React.FC = () => {
+interface HeaderProps {
+  content:string;
+}
+
+const Header: React.FC<HeaderProps> = ({content}) => {
   const { theme, toggleTheme } = useTheme();
   const [menuOpen, setMenuOpen] = useState<boolean>(false);
 
@@ -53,13 +58,14 @@ const Header: React.FC = () => {
             aria-label="Toggle theme"
           >
             {theme === 'light' ? (
-              <MoonIcon className="w-6 h-6" />
+              <MoonIcon />
             ) : (
-              <SunIcon className="w-6 h-6" />
+              <SunIcon />
             )}
           </button>
-          <button className="hidden md:block">EN</button>
-          <button className="hidden md:block">ES</button>
+          {/* <button className="hidden md:block">EN</button>
+          <button className="hidden md:block">ES</button> */}
+          <Download content={content} />
         </div>
       </div>
     </header>
