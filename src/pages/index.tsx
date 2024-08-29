@@ -1,4 +1,3 @@
-import Download from '@components/DownloadButton';
 import Editor from '@components/Editor';
 import Header from '@components/Header';
 import Preview from '@components/Preview';
@@ -53,7 +52,7 @@ export default function Home() {
 
   return (
     <div style={{ width: '100%', height: '100%'}} className={theme}>
-      <Header />
+      <Header content={markdown}/>
 
 
       {/* Dropdown for Selecting Templates */}
@@ -88,7 +87,7 @@ export default function Home() {
         </div>
       </div>
 
-      <Download content={markdown} />
+
     </div>
   );
 }
