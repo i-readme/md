@@ -1,6 +1,7 @@
 {
-  "name": "md",
-  "version": "0.1.0",
+  "name": "readme.md",
+  "version": "1.0.0",
+  "license": "MIT",
   "private": true,
   "scripts": {
     "dev": "next dev",
