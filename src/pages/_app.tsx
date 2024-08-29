@@ -1,13 +1,19 @@
 import { ThemeProvider } from '@config/ThemeContext';
+import '@styles/globals.css';
 import type { AppProps } from 'next/app';
-import '../styles/globals.css';
+import Head from 'next/head';
 
-function MyApp({ Component, pageProps }: AppProps) {
+function App({ Component, pageProps }: AppProps) {
   return (
-    <ThemeProvider>
-      <Component {...pageProps} />
-    </ThemeProvider>
+    <>
+      <Head>
+        <link rel="icon" href="/favicon.ico" sizes="<generated>"/>
+      </Head>
+      <ThemeProvider>
+        <Component {...pageProps} />
+      </ThemeProvider>
+    </>
   );
 }
 
-export default MyApp;
+export default App;
