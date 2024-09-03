@@ -1,8 +1,10 @@
-interface SaveButtonProps {
+import DownloadIcon from '@icons/download.svg';
+
+interface DownloadProps {
   content: string;
 }
 
-const SaveButton: React.FC<SaveButtonProps> = ({ content }) => {
+const Download: React.FC<DownloadProps> = ({ content }) => {
   const handleDownload = () => {
     const blob = new Blob([content], { type: 'text/markdown' });
     const url = URL.createObjectURL(blob);
@@ -14,7 +16,7 @@ const SaveButton: React.FC<SaveButtonProps> = ({ content }) => {
     document.body.removeChild(a);
   };
 
-  return <button onClick={handleDownload}>Download README.md</button>;
+  return <button onClick={handleDownload} ><DownloadIcon/></button>;
 };
 
-export default SaveButton;
+export default Download;

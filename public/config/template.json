@@ -1,16 +1,157 @@
 {
     "templates": [
         {
-            "name": "Basic README",
-            "content": "# Basic README\n\nThis is a basic template for a README file."
+            "id": 1,
+            "name": "Title and description",
+            "description": "Add a title to your README",
+            "options": [
+                {
+                    "label": "Main Title (h1)",
+                    "content": "# Title\n\nA brief description of what this project does and who it's for"
+                },
+                {
+                    "label": "Secondary Title (h2)",
+                    "content": "## Title\n\nA brief description of what this project does and who it's for"
+                },
+                {
+                    "label": "Subsection Title (h3)",
+                    "content": "### Title\n\nA brief description of what this project does and who it's for"
+                }
+            ]
+        },
+
+        {
+            "id": 2,
+            "name": "Table of Contents",
+            "description": "Include a table of contents",
+            "options": [
+                {
+                    "label": "Basic TOC",
+                    "content": "- [Installation](#installation)\n- [Usage](#usage)\n- [Contributing](#contributing)\n- [License](#license)"
+                },
+                {
+                    "label": "Extended TOC",
+                    "content": "- [Installation](#installation)\n- [Usage](#usage)\n- [Contributing](#contributing)\n- [License](#license)\n- [FAQ](#faq)\n- [Support](#support)"
+                },
+                {
+                    "label": "Detailed TOC",
+                    "content": "- [Installation](#installation)\n- [Usage](#usage)\n- [Contributing](#contributing)\n- [License](#license)\n- [FAQ](#faq)\n- [Support](#support)\n- [Changelog](#changelog)\n- [Credits](#credits)"
+                }
+            ]
         },
         {
-            "name": "Project README",
-            "content": "# Project README\n\n## Introduction\n\nProvide a brief description of your project."
+            "id": 3,
+            "name": "Installation",
+            "description": "Provide installation instructions",
+            "options": [
+                {
+                    "label": "Basic Installation",
+                    "content": "1. Clone the repository\n2. Run `npm install`\n3. Start the application with `npm start`"
+                },
+                {
+                    "label": "Intermediate Installation",
+                    "content": "1. Clone the repository\n2. Install dependencies with `npm install`\n3. Set up environment variables\n4. Start the application with `npm start`"
+                },
+                {
+                    "label": "Advanced Installation",
+                    "content": "1. Clone the repository\n2. Install dependencies with `npm install`\n3. Set up environment variables\n4. Build the project with `npm run build`\n5. Start the application with `npm start`"
+                }
+            ]
         },
         {
-            "name": "Documentation README",
-            "content": "# Documentation README\n\n## Setup\n\nSteps to set up the project."
+            "id": 4,
+            "name": "Usage",
+            "description": "Provide usage instructions",
+            "options": [
+                {
+                    "label": "Basic Usage",
+                    "content": "1. Run `npm start`\n2. Open your browser at `http://localhost:3000`"
+                },
+                {
+                    "label": "Intermediate Usage",
+                    "content": "1. Run `npm start`\n2. Access the API at `http://localhost:3000/api`\n3. View the frontend at `http://localhost:3000`"
+                },
+                {
+                    "label": "Advanced Usage",
+                    "content": "1. Run `npm start`\n2. Access the API at `http://localhost:3000/api`\n3. View the frontend at `http://localhost:3000`\n4. Monitor logs with `npm run logs`"
+                }
+            ]
+        },
+        {
+            "id": 5,
+            "name": "Contributing",
+            "description": "Provide contributing guidelines",
+            "options": [
+                {
+                    "label": "Basic Contributing",
+                    "content": "1. Fork the repository\n2. Create a new branch\n3. Make your changes\n4. Submit a pull request"
+                },
+                {
+                    "label": "Intermediate Contributing",
+                    "content": "1. Fork the repository\n2. Create a new branch based on `develop`\n3. Make your changes\n4. Ensure your code follows the project's coding standards\n5. Submit a pull request to `develop`"
+                },
+                {
+                    "label": "Advanced Contributing",
+                    "content": "1. Fork the repository\n2. Create a new branch based on `develop`\n3. Make your changes, including tests\n4. Ensure your code follows the project's coding standards\n5. Update documentation if needed\n6. Submit a pull request to `develop`"
+                }
+            ]
+        },
+        {
+            "id": 6,
+            "name": "License",
+            "description": "Include license information",
+            "options": [
+                {
+                    "label": "MIT License",
+                    "content": "This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details."
+                },
+                {
+                    "label": "GPL License",
+                    "content": "This project is licensed under the GPL-3.0 License - see the [LICENSE](LICENSE) file for details."
+                },
+                {
+                    "label": "Apache License",
+                    "content": "This project is licensed under the Apache License 2.0 - see the [LICENSE](LICENSE) file for details."
+                }
+            ]
+        },
+        {
+            "id": 7,
+            "name": "FAQ",
+            "description": "Include frequently asked questions",
+            "options": [
+                {
+                    "label": "General FAQ",
+                    "content": "### Question 1\nAnswer 1\n\n### Question 2\nAnswer 2\n\n### Question 3\nAnswer 3"
+                },
+                {
+                    "label": "Technical FAQ",
+                    "content": "### Question 1\nAnswer 1\n\n### Question 2\nAnswer 2\n\n### Question 3\nAnswer 3\n\n### Question 4\nAnswer 4"
+                },
+                {
+                    "label": "Support FAQ",
+                    "content": "### Question 1\nAnswer 1\n\n### Question 2\nAnswer 2\n\n### Question 3\nAnswer 3\n\n### Question 4\nAnswer 4\n\n### Question 5\nAnswer 5"
+                }
+            ]
+        },
+        {
+            "id": 8,
+            "name": "Support",
+            "description": "Provide support information",
+            "options": [
+                {
+                    "label": "Basic Support",
+                    "content": "For support, please contact [support@example.com](mailto:support@example.com)."
+                },
+                {
+                    "label": "Community Support",
+                    "content": "For support, join our community on [Slack](https://example.slack.com) or open an issue on [GitHub](https://github.com/example/repo/issues)."
+                },
+                {
+                    "label": "Enterprise Support",
+                    "content": "For enterprise support, contact our sales team at [enterprise@example.com](mailto:enterprise@example.com)."
+                }
+            ]
         }
     ]
 }
