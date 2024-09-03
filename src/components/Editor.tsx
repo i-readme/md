@@ -14,16 +14,14 @@ const Editor: React.FC<EditorProps> = ({ value, onChange }) => {
   };
 
   return (
-    <div className="p-4">
-      <h2 className="text-2xl mb-4">Edit README</h2>
+    <div style={{ height: '100%' }}>
       <textarea
         value={value}
         onChange={handleChange}
-        className={`w-full p-4 text-lg font-mono rounded-md border-2 ${
+        className={`w-full h-full p-4 text-lg font-mono rounded-md border-2 resize-none ${
           theme === 'light' ? 'bg-white text-black' : 'bg-gray-800 text-white'
         }`}
         placeholder="Write your markdown here..."
-        rows={10}
       />
     </div>
   );

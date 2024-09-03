@@ -11,8 +11,8 @@ const Preview: React.FC<PreviewProps> = ({ content }) => {
   const { theme } = useTheme();
 
   return (
-    <div
-      className={`markdown-body w-full p-4 text-lg rounded-md border-2 ${
+   <div style={{ height: '100%', maxHeight: 'auto' }}
+      className={`markdown-body w-full px-3 text-lg rounded-md border-2 ${
         theme === 'light' ? 'bg-white text-black' : 'bg-gray-800 text-white'
       }`}
     >
