@@ -40,7 +40,7 @@ const TemplateList: React.FC<TemplateListProps> = ({
             key={template.id}
             style={{
               marginBottom: '20px',
-              color: theme === 'light' ? '#00cfcf' : '#fff',
+              color: theme === 'light' ? '#000f99' : '#fff',
             }}
           >
             <span
@@ -78,7 +78,7 @@ const TemplateList: React.FC<TemplateListProps> = ({
                       key={option.label}
                       style={{
                         marginBottom: '10px',
-                        color: theme === 'light' ? '#000555' : '#fff',
+                        color: theme === 'light' ? '#000785' : '#fff',
                       }}
                     >
                       <label style={{ cursor: 'pointer' }}>
