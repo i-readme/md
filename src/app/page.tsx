@@ -1,4 +1,5 @@
 "use client";
+
 import Editor from '@components/Editor';
 import Header from '@components/Header';
 import TemplateList from '@components/List';
@@ -12,6 +13,7 @@ interface TemplateOption {
 }
 
 interface ReadmeTemplate {
+  id: number;
   name: string;
   content: string;
   options: TemplateOption[];
@@ -20,11 +22,10 @@ interface ReadmeTemplate {
 export default function Home() {
   const [templates, setTemplates] = useState<ReadmeTemplate[]>([]);
   const [markdown, setMarkdown] = useState<string>('# Hello world');
-  const [selectedTemplate, setSelectedTemplate] = useState<string>('');
-  const [selectedOption, setSelectedOption] = useState<{ [key: string]: string }>({});
-  const [templateContent, setTemplateContent] = useState<{ [key: string]: string }>({});
-  const [originalTemplateContent, setOriginalTemplateContent] = useState<{ [key: string]: string }>({});
-  const [userEditedContent, setUserEditedContent] = useState<{ [key: string]: string }>({});
+  const [selectedTemplateId, setSelectedTemplateId] = useState<number | null>(null);
+  const [selectedOption, setSelectedOption] = useState<{ [key: number]: string }>({});
+  const [templateContent, setTemplateContent] = useState<{ [key: number]: string }>({});
+  const [userEditedContent, setUserEditedContent] = useState<{ [key: number]: string }>({});
 
   const { theme } = useTheme();
 
@@ -45,136 +46,115 @@ export default function Home() {
     fetchTemplates();
   }, []);
 
-  const updateMarkdown = (updatedTemplateContent: { [key: string]: string }) => {
+  const updateMarkdown = (updatedTemplateContent: { [key: number]: string }) => {
     const newMarkdown = Object.values(updatedTemplateContent).join('\n\n');
     setMarkdown(newMarkdown);
   };
 
-  const handleSelectTemplate = (templateName: string) => {
-    const selected = templates.find((template) => template.name === templateName);
+  const handleSelectTemplate = (templateId: number) => {
+    const selected = templates.find((template) => template.id === templateId);
     if (selected) {
       const initialContent = selected.content;
 
-      setOriginalTemplateContent((prev) => ({
-        ...prev,
-        [templateName]: initialContent,
-      }));
-
       setTemplateContent((prev) => ({
         ...prev,
-        [templateName]: initialContent,
+        [templateId]: initialContent,
       }));
       setUserEditedContent((prev) => ({
         ...prev,
-        [templateName]: initialContent,
+        [templateId]: initialContent,
       }));
 
-      setSelectedTemplate(templateName);
-      updateMarkdown({ ...templateContent, [templateName]: initialContent });
+      setSelectedTemplateId(templateId);
+      updateMarkdown({ ...templateContent, [templateId]: initialContent });
     }
   };
 
-  const handleSelectOption = (optionLabel: string, templateName: string, optionContent: string) => {
+  const handleSelectOption = (optionLabel: string, templateId: number, optionContent: string) => {
     const updatedTemplateContent = {
       ...templateContent,
-      [templateName]: optionContent,
+      [templateId]: optionContent,
     };
     setTemplateContent(updatedTemplateContent);
     updateMarkdown(updatedTemplateContent);
 
     setSelectedOption((prevSelectedOption) => ({
       ...prevSelectedOption,
-      [templateName]: optionLabel,
+      [templateId]: optionLabel,
     }));
 
     setUserEditedContent((prevUserEditedContent) => ({
       ...prevUserEditedContent,
-      [templateName]: optionContent,
+      [templateId]: optionContent,
     }));
   };
 
-  const handleDeleteTemplate = (templateName: string) => {
-    if (window.confirm(`Are you sure you want to delete the template "${templateName}"? This action cannot be undone.`)) {
+  const handleDeleteTemplate = (templateId: number) => {
+    if (window.confirm(`Are you sure you want to delete this template? This action cannot be undone.`)) {
+      const updatedTemplates = templates.filter((template) => template.id !== templateId);
+      setTemplates(updatedTemplates);
+
       const updatedTemplateContent = { ...templateContent };
-      delete updatedTemplateContent[templateName];
+      delete updatedTemplateContent[templateId];
 
       const updatedSelectedOption = { ...selectedOption };
-      delete updatedSelectedOption[templateName];
+      delete updatedSelectedOption[templateId];
 
       const updatedUserEditedContent = { ...userEditedContent };
-      delete updatedUserEditedContent[templateName];
-
-      const updatedOriginalTemplateContent = { ...originalTemplateContent };
-      delete updatedOriginalTemplateContent[templateName];
+      delete updatedUserEditedContent[templateId];
 
       setTemplateContent(updatedTemplateContent);
       setSelectedOption(updatedSelectedOption);
       setUserEditedContent(updatedUserEditedContent);
-      setOriginalTemplateContent(updatedOriginalTemplateContent);
 
-      updateMarkdown(updatedTemplateContent);
-    }
-  };
-
-  const handleResetTemplate = (templateName: string) => {
-    const originalContent = originalTemplateContent[templateName];
-
-    if (originalContent) {
-      const updatedTemplateContent = {
-        ...templateContent,
-        [templateName]: originalContent,
-      };
-      setTemplateContent(updatedTemplateContent);
-      setUserEditedContent((prev) => ({
-        ...prev,
-        [templateName]: originalContent,
-      }));
-      updateMarkdown(updatedTemplateContent);
+      if (selectedTemplateId === templateId) {
+        setSelectedTemplateId(null);
+        setMarkdown('# Hello world');
+      } else {
+        updateMarkdown(updatedTemplateContent);
+      }
     }
   };
 
   const handleEditorChange = (newContent: string) => {
     setMarkdown(newContent);
 
-    if (selectedTemplate) {
+    if (selectedTemplateId !== null) {
       setUserEditedContent((prevUserEditedContent) => ({
         ...prevUserEditedContent,
-        [selectedTemplate]: newContent,
+        [selectedTemplateId]: newContent,
       }));
 
       setTemplateContent((prevTemplateContent) => ({
         ...prevTemplateContent,
-        [selectedTemplate]: newContent,
+        [selectedTemplateId]: newContent,
       }));
     }
   };
-
   const handleResetEditor = () => {
     const confirmation = window.confirm('Are you sure you want to reset the editor? All unsaved changes will be lost.');
     if (confirmation) {
       setMarkdown('# Hello world');
-      setSelectedTemplate('');
+      setSelectedTemplateId(null);
       setSelectedOption({});
       setTemplateContent({});
       setUserEditedContent({});
-      setOriginalTemplateContent({});
     }
   };
 
   return (
-    <main  className={theme}>
+    <main className={theme}>
       <Header content={markdown} reset={handleResetEditor}/>
 
-      <div style={{ display: 'flex', gap: '1rem', padding: '20px' }}>
+      <div style={{ display: 'flex', gap: '1rem', padding: '20px' }} className="flex min-h-screen flex-row justify-between">
         {/* TemplateList Component */}
         <TemplateList
           templates={templates}
-          selectedTemplate={selectedTemplate}
+          selectedTemplateId={selectedTemplateId}
           selectedOption={selectedOption}
           handleSelectTemplate={handleSelectTemplate}
           handleSelectOption={handleSelectOption}
           handleDeleteTemplate={handleDeleteTemplate}
-          handleResetTemplate={handleResetTemplate}
         />
 
         {/* Editor */}

@@ -1,5 +1,5 @@
-import { useTheme } from '@config/ThemeContext'; // Adjust the import path as necessary
-
+import { useTheme } from '@config/ThemeContext';
+import DeleteIcon from '@icons/delete.svg';
 
 interface TemplateOption {
   label: string;
@@ -7,6 +7,7 @@ interface TemplateOption {
 }
 
 interface ReadmeTemplate {
+  id: number;
   name: string;
   content: string;
   options: TemplateOption[];
@@ -14,22 +15,20 @@ interface ReadmeTemplate {
 
 interface TemplateListProps {
   templates: ReadmeTemplate[];
-  selectedTemplate: string;
-  selectedOption: { [key: string]: string };
-  handleSelectTemplate: (templateName: string) => void;
-  handleSelectOption: (optionLabel: string, templateName: string, optionContent: string) => void;
-  handleDeleteTemplate: (templateName: string) => void;
-  handleResetTemplate: (templateName: string) => void;
+  selectedTemplateId: number | null;
+  selectedOption: { [key: number]: string };
+  handleSelectTemplate: (templateId: number) => void;
+  handleSelectOption: (optionLabel: string, templateId: number, optionContent: string) => void;
+  handleDeleteTemplate: (templateId: number) => void;
 }
 
 const TemplateList: React.FC<TemplateListProps> = ({
   templates,
-  selectedTemplate,
+  selectedTemplateId,
   selectedOption,
   handleSelectTemplate,
   handleSelectOption,
   handleDeleteTemplate,
-  handleResetTemplate,
 }) => {
   const { theme } = useTheme(); // Get the current theme
 
@@ -38,23 +37,40 @@ const TemplateList: React.FC<TemplateListProps> = ({
       <ul className="px-4">
         {templates.map((template) => (
           <li
-            key={template.name}
+            key={template.id}
             style={{
               marginBottom: '20px',
-              color: theme === 'light' ? '#000' : '#fff',
+              color: theme === 'light' ? '#000f99' : '#fff',
             }}
           >
             <span
-              onClick={() => handleSelectTemplate(template.name)}
+              onClick={() => handleSelectTemplate(template.id)}
               style={{
                 cursor: 'pointer',
-                fontWeight: selectedTemplate === template.name ? 'bold' : 'normal',
+                fontWeight: selectedTemplateId === template.id ? 'bold' : 'normal',
               }}
             >
-              {template.name}
+              <span className="flex flex-row items-center justify-between">
+                <>{template.name}</>
+                <>
+                  {selectedOption[template.id] && (
+                    <div style={{ marginTop: '10px', marginRight: '10px' }}>
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation(); // Prevents triggering the selection when clicking delete
+                          handleDeleteTemplate(template.id);
+                        }}
+                        style={{ marginRight: '10px' }}
+                      >
+                        <DeleteIcon />
+                      </button>
+                    </div>
+                  )}
+                </>
+              </span>
             </span>
 
-            {selectedTemplate === template.name && (
+            {selectedTemplateId === template.id && (
               <>
                 <ul style={{ marginLeft: '20px', marginTop: '10px' }}>
                   {template.options.map((option) => (
@@ -62,16 +78,16 @@ const TemplateList: React.FC<TemplateListProps> = ({
                       key={option.label}
                       style={{
                         marginBottom: '10px',
-                        color: theme === 'light' ? '#000555' : '#fff',
+                        color: theme === 'light' ? '#000785' : '#fff',
                       }}
                     >
                       <label style={{ cursor: 'pointer' }}>
                         <input
                           type="radio"
-                          name={`option-${template.name}`}
+                          name={`option-${template.id}`}
                           value={option.label}
-                          checked={selectedOption[template.name] === option.label}
-                          onChange={() => handleSelectOption(option.label, template.name, option.content)}
+                          checked={selectedOption[template.id] === option.label}
+                          onChange={() => handleSelectOption(option.label, template.id, option.content)}
                           style={{ marginRight: '10px' }}
                         />
                         {option.label}
@@ -79,24 +95,6 @@ const TemplateList: React.FC<TemplateListProps> = ({
                     </li>
                   ))}
                 </ul>
-
-                {selectedOption[template.name] && (
-                  <div style={{ marginTop: '10px' }}>
-                    <button
-                      onClick={() => handleDeleteTemplate(template.name)}
-                      style={{ marginRight: '10px' }}
-                      className="p-2 bg-red-500 text-white rounded"
-                    >
-                      Delete Template
-                    </button>
-                    <button
-                      onClick={() => handleResetTemplate(template.name)}
-                      className="p-2 bg-blue-500 text-white rounded"
-                    >
-                      Reset Template
-                    </button>
-                  </div>
-                )}
               </>
             )}
           </li>
