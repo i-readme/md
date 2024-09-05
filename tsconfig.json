@@ -1,29 +1,45 @@
 {
   "compilerOptions": {
-    "lib": ["dom", "dom.iterable", "esnext"],
-    "allowJs": true,
-    "skipLibCheck": true,
-    "strict": true,
-    "noEmit": true,
-    "esModuleInterop": true,
-    "module": "esnext",
-    "moduleResolution": "bundler",
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    "jsx": "preserve",
-    "incremental": true,
+    "target": "es5", // This ensures compatibility with older browsers
+    "lib": ["dom", "dom.iterable", "esnext"], // Ensures modern JavaScript features and DOM support
+    "allowJs": true, // Allow importing JavaScript files
+    "skipLibCheck": true, // Skips type-checking of all declaration files
+    "strict": true, // Enables all strict type-checking options
+    "noEmit": true, // Disable emitting files; useful if Next.js handles builds
+    "module": "esnext", // Use ESNext module syntax
+    "resolveJsonModule": true, // Enables importing JSON files as modules
+    "isolatedModules": true, // Ensures that each file can be transpiled individually
+    "jsx": "preserve", // JSX is preserved as-is for Next.js
+    "incremental": true, // Enables incremental compilation for faster rebuilds
+    "moduleResolution": "node", // Use Node.js-style module resolution
+    "esModuleInterop": true, // Enables interoperability between CommonJS and ESModules
+    "allowSyntheticDefaultImports": true, // Allow default imports from modules with no default export
+    "forceConsistentCasingInFileNames": true, // Ensures case consistency between imports and file names
+    "paths": {
+      "@components/*": ["./src/components/*"], // Aliases for components
+      "@config/*": ["./src/config/*"], // Aliases for config
+      "@icons/*": ["./public/icons/*"], // Aliases for icons
+      "@styles/*": ["./src/styles/*"] // Aliases for styles
+    },
+    "baseUrl": ".", // Ensures relative paths are correctly resolved
+    "types": ["node", "next"], // Types needed for Node.js, Jest, and Next.js
     "plugins": [
       {
-        "name": "next"
+        "name": "typescript-plugin-css-modules" // Plugin to provide type support for CSS modules
+      },
+      {
+        "name": "next" // Next.js-specific TypeScript plugin
       }
-    ],
-    "paths": {
-      "@components/*": ["./src/components/*"],
-      "@config/*": ["./src/config/*"],
-      "@icons/*": ["./public/icons/*"],
-      "@styles/*": ["./src/styles/*"],
-    }
+    ]
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
-  "exclude": ["node_modules"]
+  "include": [
+    "next-env.d.ts", // Next.js environment types
+    "**/*.ts", // TypeScript files
+    "**/*.tsx", // TypeScript + JSX files
+    ".next/types/**/*.ts" // Next.js generated types
+  ],
+  "exclude": ["node_modules"], // Exclude node_modules for performance
+  "ts-node": {
+    "transpileOnly": true // Improves speed when using TypeScript with Node.js
+  }
 }

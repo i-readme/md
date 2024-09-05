@@ -1,6 +1,6 @@
 "use client";
 
-import ErrorIcon from '@icons/error.svg';
+import ErrorIcon from '@icons/sun.svg';
 
 
 
@@ -10,7 +10,7 @@ export default function AboutPage() {
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen text-center">
-      <h1 className="text-3xl font-bold mb-4">Something went wrong!</h1>
+      <h1 className="text-3xl font-bold mb-4">This is about page</h1>
       <ErrorIcon/>
 
       <button
