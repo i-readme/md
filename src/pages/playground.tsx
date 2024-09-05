@@ -1,5 +1,3 @@
-"use client";
-
 import Editor from '@components/Editor';
 import Header from '@components/Header';
 import TemplateList from '@components/List';
@@ -19,7 +17,7 @@ interface ReadmeTemplate {
   options: TemplateOption[];
 }
 
-export default function Home() {
+export default function Playground() {
   const [templates, setTemplates] = useState<ReadmeTemplate[]>([]);
   const [markdown, setMarkdown] = useState<string>('# Hello world');
   const [selectedTemplateId, setSelectedTemplateId] = useState<number | null>(null);
@@ -27,12 +25,16 @@ export default function Home() {
   const [templateContent, setTemplateContent] = useState<{ [key: number]: string }>({});
   const [userEditedContent, setUserEditedContent] = useState<{ [key: number]: string }>({});
 
+
+
+
   const { theme } = useTheme();
 
   useEffect(() => {
     const fetchTemplates = async () => {
+      const url = process.env.NEXT_PUBLIC_DATABASE_URL;
       try {
-        const res = await fetch('/config/template.json'); // Fetch from public folder
+        const res = await fetch(`${url}`);
         if (!res.ok) {
           throw new Error('Failed to fetch templates');
         }
