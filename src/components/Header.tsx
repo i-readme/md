@@ -47,7 +47,7 @@ const Header: React.FC<HeaderProps> = ({content, reset}) => {
               className="focus:outline-none"
               aria-label="Toggle menu"
             >
-              <ToggleIcon className="w-6 h-6" />
+              <ToggleIcon />
             </button>
           </div>
         </div>

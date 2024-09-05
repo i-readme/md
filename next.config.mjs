@@ -1,6 +1,3 @@
-import { createRequire } from 'module';
-const require = createRequire(import.meta.url);
-
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   webpack(config) {
@@ -8,9 +5,17 @@ const nextConfig = {
       test: /\.svg$/,
       use: [
         {
-          loader: "@svgr/webpack",
+          loader: '@svgr/webpack',
           options: {
-            svgo: false, // Disable SVGO
+            svgo: true, // Enable SVGO to optimize SVGs
+            svgoConfig: {
+              plugins: [
+                {
+                  name: 'removeViewBox',
+                  active: false, // Keep viewBox for better scaling
+                },
+              ],
+            },
           },
         },
       ],
